@@ -1,0 +1,55 @@
+<table cellspacing='10' cellpadding='5' border='0'>
+<% @events.each do |event| %>
+  <tr>
+    <td width='50%'>
+      <h3><%= event.title %></h3>
+      <p>Google maps <%=link_to "here", event.map_url.html_safe, :target => "new" %> or below...</p>
+    </td>
+    <td width='50%' valign='bottom'>
+      <p><%= event.description.html_safe %></p>
+      <p>From <b><%= event.start_time.strftime("%d/%m/%Y at %I:%M%p") %></b> to <b><%= event.end_time.strftime("%d/%m/%Y at %I:%M%p") %></b></p>
+    </td>
+  </tr>
+  <tr>
+    <td valign='top'>
+      <%= event.map_html.html_safe %>
+    </td>
+    <td valign='top'>
+      <%= image_tag event.image_url %>
+    </td>
+  </tr>
+  <% if current_user %>
+  <tr>
+    <td align='center'>
+      <h4>Who is coming?</h4>
+      <br />
+      <% event.events_users.each do |eu| %>
+        <% if eu.attending %>
+          <%=eu.user.name%>
+          •
+        <% end %>
+      <% end %>
+      ...
+    </td>
+    <td align='center'>
+      <h4>What are they bringing?</h4>
+      <br />
+      <% event.events_users.each do |eu| %>
+        <% if eu.stuff.length > 0 %>
+          <%= eu.stuff %>
+          •
+        <% end %>
+      <% end %>
+      ...
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td colspan='2' align='center'>
+      <%= link_to "Respond...", new_events_user_path(:event_id => event.id), :class => 'btn btn-primary' %>
+    </td>
+  </tr>
+<% end %>
+
+</table>
+

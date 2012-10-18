@@ -1,0 +1,24 @@
+<table width="700" border="0" cellspacing="10" cellpadding="5">
+  <tr>
+    <td width="50%" valign="bottom">
+<%= simple_form_for @events_user do |f| %>
+  <%= f.hidden_field :attending, :value => true %>
+  <%= f.input :stuff, :label => "What are you bringing?" %>
+  <%= f.input :comment, :label => "Notes to the host..." %>
+      <div style="background-color: #77BB77; text-align: center;" class="form-actions">
+  <%= f.button :submit, :class => 'btn-primary', :value => "Yes, I'll be there!" %>
+      </div>
+<% end %>
+    </td>
+    <td width="50%" valign="bottom">
+<%= simple_form_for @events_user do |f| %>
+      <div style="background-color: #DD4444; text-align: center;" class="form-actions">
+  <%= f.button :submit, :class => 'btn-primary', :value => "No, I won't make it..." %>
+      </div>
+  <%= f.hidden_field :attending, :value => false %>
+  <%= f.hidden_field :stuff, :value => "" %>
+  <%= f.hidden_field :comment, :value => "" %>
+<% end %>
+    </td>
+  </tr>
+</table>
